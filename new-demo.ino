@@ -19,36 +19,19 @@ UBYTE *BlackImage, *RYImage;
 
 void setup()
 {
-  Serial.begin(115200);
-  delay(1000);
-  Serial.println("1");
-//  init_screen();
-//  create_canvas();
-//
-//  Paint_SelectImage(BlackImage);
-//  Paint_Clear(WHITE);
-  Chart* chart = new_chart(0, 0);
-  Serial.println("2");
-  ChartPoint *point1 = new_chart_point(30, "30度", "2021-10-01");
-  Serial.println("3");
-  ChartPoint *point2 = new_chart_point(45, "45度", "2021-10-02");
-  Serial.println("4");
-  chart_push_point(chart, point1);
-  Serial.println("5");
-  chart_push_point(chart, point2);
-  Serial.println("6");
-  ChartPoint* p = chart->point;
-  Serial.println(chart->point_count);
-  while(p!=NULL){
-    Serial.println(p->label);
-    p = p->next;
-  }
-  while(true){
-    delay(5000);
-  }
+  init_screen();
+  create_canvas();
 
-  
-  chart_draw(chart);
+  Paint_SelectImage(BlackImage);
+  Paint_Clear(WHITE);
+  Paint_DrawPoint(8, 8, BLACK, DOT_PIXEL_8X8, DOT_STYLE_DFT);
+  Paint_DrawPoint(632, 376, BLACK, DOT_PIXEL_8X8, DOT_STYLE_DFT);
+  // Chart* chart = new_chart(0, 0);
+  // ChartPoint *point1 = new_chart_point(30, "30度", "2021-10-01");
+  // ChartPoint *point2 = new_chart_point(45, "45度", "2021-10-02");
+  // chart_push_point(chart, point1);
+  // chart_push_point(chart, point2);
+  // chart_draw(chart);
   
 //  Paint_DrawPoint(10, 80, BLACK, DOT_PIXEL_1X1, DOT_STYLE_DFT);
 //  Paint_DrawPoint(10, 90, BLACK, DOT_PIXEL_2X2, DOT_STYLE_DFT);
@@ -73,7 +56,7 @@ void setup()
 //  Paint_DrawString_CN(130, 0, "你好abc", &Font12CN, BLACK, WHITE);
 //  Paint_DrawString_EN(10, 20, "hello world", &Font12, WHITE, BLACK);
 //  Paint_DrawNum(10, 33, 123456789, &Font12, BLACK, WHITE);
-  Paint_DrawString_CN(0, 200, "hello world", &Font16CN, WHITE, BLACK);
+  Paint_DrawString_CN(100, 200, "hello world", &Font16CN, WHITE, BLACK);
 
   display_canvas();
   sleep_screen();
@@ -82,7 +65,9 @@ void setup()
 
 void loop()
 {
-
+  while(true){
+    delay(5000);
+  }
 }
 
 //屏幕初始化

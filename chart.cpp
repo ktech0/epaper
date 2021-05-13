@@ -1,8 +1,8 @@
 #include "chart.h"
 
-ChartPoint* new_chart_point(uint16_t value, char* label, char* x_label)
+ChartPoint* new_chart_point(uint16_t value, char *label, char *x_label)
 {
-    ChartPoint* point = (ChartPoint*)malloc(sizeof(ChartPoint));
+    ChartPoint *point = (ChartPoint*)malloc(sizeof(ChartPoint));
     point->value = value;
     point->label = label;
     point->x_label = x_label;
@@ -12,7 +12,7 @@ ChartPoint* new_chart_point(uint16_t value, char* label, char* x_label)
 
 Chart* new_chart(uint16_t pos_x, uint16_t pos_y)
 {
-    Chart* chart = (Chart*)malloc(sizeof(Chart));
+    Chart *chart = (Chart*)malloc(sizeof(Chart));
     chart->pos_x = pos_x;
     chart->pos_y = pos_y;
     chart->point = NULL;
@@ -23,7 +23,7 @@ Chart* new_chart(uint16_t pos_x, uint16_t pos_y)
     return chart;
 }
 
-void chart_push_point(Chart* c, ChartPoint* p)
+void chart_push_point(Chart *c, ChartPoint *p)
 {
     if (c->point == NULL){
         c->point = p;
@@ -33,11 +33,10 @@ void chart_push_point(Chart* c, ChartPoint* p)
             _p = _p->next;
         }
         _p->next = p;
-        free(_p);
     }
 }
 
-void chart_init(Chart * c)
+void chart_init(Chart *c)
 {
     c->point_count = 0;
     c->max_value = 0;
@@ -54,18 +53,17 @@ void chart_init(Chart * c)
         _p = _p->next;
         c->point_count++;
     }
-    free(_p);
 }
 
-void chart_draw(Chart* c)
+void chart_draw(Chart *c)
 {
     chart_init(c);
     //画X轴
-    Paint_DrawLine(c->pos_x, c->pos_y + c->height, c->pos_x + c->width, c->pos_y + c->height, BLACK, c->border_width, LINE_STYLE_SOLID);
+    Paint_DrawLine(c->pos_x + 100, c->pos_y + c->height, c->pos_x + c->width, c->pos_y + c->height, BLACK, c->border_width, LINE_STYLE_SOLID);
     //画Y轴
     Paint_DrawLine(c->pos_x, c->pos_y, c->pos_x, c->pos_y + c->height, BLACK, c->border_width, LINE_STYLE_SOLID);
     //画点和标签
-    ChartPoint* p = c->point;
+    ChartPoint *p = c->point;
     uint16_t x = c->pos_x + c->border_width;
     uint16_t x_width = (c->width - c->border_width) / (c->point_count + 1);
     while (p != NULL)
@@ -79,5 +77,4 @@ void chart_draw(Chart* c)
         Paint_DrawString_CN(text_x, y, p->label, &Font16CN, BLACK, WHITE);
         p = p->next;
     }
-    free(p);
 }
